@@ -561,6 +561,7 @@ public class MagicValues {
         register(ClientNotification.RAIN_STRENGTH, 7);
         register(ClientNotification.THUNDER_STRENGTH, 8);
         register(ClientNotification.AFFECTED_BY_ELDER_GUARDIAN, 10);
+        register(ClientNotification.AFFECTED_BY_ELDER_GUARDIAN, 11);
 
         register(DemoMessageValue.WELCOME, 0);
         register(DemoMessageValue.MOVEMENT_CONTROLS, 101);
