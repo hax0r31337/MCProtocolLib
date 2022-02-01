@@ -1078,7 +1078,8 @@ public class MagicValues {
             }
         }
 
-        throw new IllegalArgumentException("Value " + value + " has no mapping for key class " + keyType.getName() + ".");
+        return null;
+//        throw new IllegalArgumentException("Value " + value + " has no mapping for key class " + keyType.getName() + ".");
     }
 
     @SuppressWarnings("unchecked")
