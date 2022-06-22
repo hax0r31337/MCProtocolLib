@@ -104,6 +104,18 @@ public abstract class Message implements Cloneable {
             }
 
             return msg;
+        } else if(e.isJsonArray()) {
+            JsonArray jsonArray = e.getAsJsonArray();
+            Message message = null;
+            for(JsonElement element : jsonArray) {
+                Message message1 = fromJson(element);
+                if(message == null) {
+                    message = message1;
+                } else {
+                    message.addExtra(message1);
+                }
+            }
+            return message;
         } else {
             throw new IllegalArgumentException("Cannot convert " + e.getClass().getSimpleName() + " to a message.");
         }
