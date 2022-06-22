@@ -5,10 +5,32 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TranslationMessage extends Message {
+
+    private static final Map<String, String> languageMap;
+    public static final Pattern STRING_VARIABLE_PATTERN = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
+
+    static {
+        Map<String, String> langMap = new HashMap<>();
+        try {
+            Properties prop = new Properties();
+            prop.load(TranslationMessage.class.getClassLoader().getResourceAsStream("proto/mc.1.12.lang"));
+
+            for(Map.Entry<Object, Object> entry : prop.entrySet()) {
+                langMap.put(entry.getKey().toString(), entry.getValue().toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        languageMap = Collections.unmodifiableMap(langMap);
+    }
+
     private String translationKey;
     private Message translationParams[];
 
@@ -22,6 +44,55 @@ public class TranslationMessage extends Message {
     }
 
     public String getTranslationKey() {
+        if(languageMap.containsKey(this.translationKey)) {
+            String format = languageMap.get(this.translationKey);
+            Matcher matcher = STRING_VARIABLE_PATTERN.matcher(format);
+            int i = 0;
+            int j = 0;
+            StringBuilder sb = new StringBuilder();
+
+            try {
+                for (int l; matcher.find(j); j = l) {
+                    int k = matcher.start();
+                    l = matcher.end();
+
+                    if (k > j)
+                    {
+                        sb.append(String.format(format.substring(j, k)));
+                    }
+
+                    String s2 = matcher.group(2);
+                    String s = format.substring(k, l);
+
+                    if ("%".equals(s2) && "%%".equals(s))
+                    {
+                        sb.append("%");
+                    }
+                    else
+                    {
+                        if (!"s".equals(s2))
+                        {
+                            throw new IllegalStateException("Unsupported format: '" + s + "'");
+                        }
+
+                        String s1 = matcher.group(1);
+                        int i1 = s1 != null ? Integer.parseInt(s1) - 1 : i++;
+
+                        if (i1 < this.translationParams.length)
+                        {
+                            sb.append(this.translationParams[i1].getFullText());
+                        }
+                    }
+                }
+
+                if (j < format.length()) {
+                    sb.append(String.format(format.substring(j)));
+                }
+                return sb.toString();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
         return this.translationKey;
     }
 
