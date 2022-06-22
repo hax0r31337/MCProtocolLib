@@ -18,6 +18,7 @@ public abstract class Message implements Cloneable {
         try {
             return fromJson(new JsonParser().parse(str));
         } catch(Exception e) {
+            e.printStackTrace();
             return new TextMessage(str);
         }
     }
@@ -48,6 +49,15 @@ public abstract class Message implements Cloneable {
                 msg = new TranslationMessage(json.get("translate").getAsString(), with);
             } else if(json.has("keybind")) {
                 msg = new KeybindMessage(json.get("keybind").getAsString());
+            } else if(json.has("score")) {
+                JsonObject obj = json.getAsJsonObject("score");
+                msg = new ScoreMessage(obj.get("name").getAsString(), obj.get("objective").getAsString());
+
+                if(obj.has("value")) {
+                    ((ScoreMessage)msg).setValue(obj.get("value").getAsString());
+                }
+            } else if(json.has("selector")) {
+                msg = new SelectorMessage(json.get("selector").getAsString());
             } else {
                 throw new IllegalArgumentException("Unknown message type in json: " + json.toString());
             }
