@@ -44,6 +44,30 @@ public class TranslationMessage extends Message {
     }
 
     public String getTranslationKey() {
+        return this.translationKey;
+    }
+
+    public Message[] getTranslationParams() {
+        Message copy[] = Arrays.copyOf(this.translationParams, this.translationParams.length);
+        for(int index = 0; index < copy.length; index++) {
+            copy[index] = copy[index].clone();
+        }
+
+        return copy;
+    }
+
+    @Override
+    public Message setStyle(MessageStyle style) {
+        super.setStyle(style);
+        for(Message param : this.translationParams) {
+            param.getStyle().setParent(this.getStyle());
+        }
+
+        return this;
+    }
+
+    @Override
+    public String getText() {
         if(languageMap.containsKey(this.translationKey)) {
             String format = languageMap.get(this.translationKey);
             Matcher matcher = STRING_VARIABLE_PATTERN.matcher(format);
@@ -93,30 +117,6 @@ public class TranslationMessage extends Message {
                 exception.printStackTrace();
             }
         }
-        return this.translationKey;
-    }
-
-    public Message[] getTranslationParams() {
-        Message copy[] = Arrays.copyOf(this.translationParams, this.translationParams.length);
-        for(int index = 0; index < copy.length; index++) {
-            copy[index] = copy[index].clone();
-        }
-
-        return copy;
-    }
-
-    @Override
-    public Message setStyle(MessageStyle style) {
-        super.setStyle(style);
-        for(Message param : this.translationParams) {
-            param.getStyle().setParent(this.getStyle());
-        }
-
-        return this;
-    }
-
-    @Override
-    public String getText() {
         return this.translationKey;
     }
 
