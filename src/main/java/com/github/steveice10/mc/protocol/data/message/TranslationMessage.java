@@ -19,7 +19,7 @@ public class TranslationMessage extends Message {
         Map<String, String> langMap = new HashMap<>();
         try {
             Properties prop = new Properties();
-            prop.load(TranslationMessage.class.getClassLoader().getResourceAsStream("proto/mc.1.12.lang"));
+            prop.load(TranslationMessage.class.getClassLoader().getResourceAsStream("proto/mc1.12.lang"));
 
             for(Map.Entry<Object, Object> entry : prop.entrySet()) {
                 langMap.put(entry.getKey().toString(), entry.getValue().toString());
