@@ -44,15 +44,7 @@ import com.github.steveice10.mc.protocol.data.game.setting.ChatVisibility;
 import com.github.steveice10.mc.protocol.data.game.setting.Difficulty;
 import com.github.steveice10.mc.protocol.data.game.statistic.GenericStatistic;
 import com.github.steveice10.mc.protocol.data.game.window.AdvancementTabAction;
-import com.github.steveice10.mc.protocol.data.game.window.ClickItemParam;
 import com.github.steveice10.mc.protocol.data.game.window.CraftingBookDataType;
-import com.github.steveice10.mc.protocol.data.game.window.CreativeGrabParam;
-import com.github.steveice10.mc.protocol.data.game.window.DropItemParam;
-import com.github.steveice10.mc.protocol.data.game.window.FillStackParam;
-import com.github.steveice10.mc.protocol.data.game.window.MoveToHotbarParam;
-import com.github.steveice10.mc.protocol.data.game.window.ShiftClickItemParam;
-import com.github.steveice10.mc.protocol.data.game.window.SpreadItemParam;
-import com.github.steveice10.mc.protocol.data.game.window.WindowAction;
 import com.github.steveice10.mc.protocol.data.game.window.WindowType;
 import com.github.steveice10.mc.protocol.data.game.window.property.AnvilProperty;
 import com.github.steveice10.mc.protocol.data.game.window.property.BrewingStandProperty;
@@ -177,46 +169,6 @@ public class MagicValues {
         register(PlayerAction.DROP_ITEM, 4);
         register(PlayerAction.RELEASE_USE_ITEM, 5);
         register(PlayerAction.SWAP_HANDS, 6);
-
-        register(WindowAction.CLICK_ITEM, 0);
-        register(WindowAction.SHIFT_CLICK_ITEM, 1);
-        register(WindowAction.MOVE_TO_HOTBAR_SLOT, 2);
-        register(WindowAction.CREATIVE_GRAB_MAX_STACK, 3);
-        register(WindowAction.DROP_ITEM, 4);
-        register(WindowAction.SPREAD_ITEM, 5);
-        register(WindowAction.FILL_STACK, 6);
-
-        register(ClickItemParam.LEFT_CLICK, 0);
-        register(ClickItemParam.RIGHT_CLICK, 1);
-
-        register(ShiftClickItemParam.LEFT_CLICK, 0);
-        register(ShiftClickItemParam.RIGHT_CLICK, 1);
-
-        register(MoveToHotbarParam.SLOT_1, 0);
-        register(MoveToHotbarParam.SLOT_2, 1);
-        register(MoveToHotbarParam.SLOT_3, 2);
-        register(MoveToHotbarParam.SLOT_4, 3);
-        register(MoveToHotbarParam.SLOT_5, 4);
-        register(MoveToHotbarParam.SLOT_6, 5);
-        register(MoveToHotbarParam.SLOT_7, 6);
-        register(MoveToHotbarParam.SLOT_8, 7);
-        register(MoveToHotbarParam.SLOT_9, 8);
-
-        register(CreativeGrabParam.GRAB, 2);
-
-        register(DropItemParam.LEFT_CLICK_OUTSIDE_NOT_HOLDING, 0);
-        register(DropItemParam.RIGHT_CLICK_OUTSIDE_NOT_HOLDING, 1);
-        register(DropItemParam.DROP_FROM_SELECTED, 2);
-        register(DropItemParam.DROP_SELECTED_STACK, 3);
-
-        register(SpreadItemParam.LEFT_MOUSE_BEGIN_DRAG, 0);
-        register(SpreadItemParam.LEFT_MOUSE_ADD_SLOT, 1);
-        register(SpreadItemParam.LEFT_MOUSE_END_DRAG, 2);
-        register(SpreadItemParam.RIGHT_MOUSE_BEGIN_DRAG, 4);
-        register(SpreadItemParam.RIGHT_MOUSE_ADD_SLOT, 5);
-        register(SpreadItemParam.RIGHT_MOUSE_END_DRAG, 6);
-
-        register(FillStackParam.FILL, 0);
 
         register(MessageType.CHAT, 0);
         register(MessageType.SYSTEM, 1);
